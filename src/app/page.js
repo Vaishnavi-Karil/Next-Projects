@@ -7,6 +7,11 @@ function Home() {
   const [teams] = useState(['Team A', 'Team B', 'Team C']); // Replace with your teams
   const [tasks, setTasks] = useState([]);
 
+
+  // const assignTask = ({ task, selectedTeam }) => {
+  //   setTasks([...tasks, { task, selectedTeam }]);
+  // };
+
   useEffect(() => {
     // Function to fetch data from the API
     async function fetchData() {
@@ -26,17 +31,10 @@ function Home() {
     fetchData();
   }, []);
 
-  const assignTask = ({ task, selectedTeam }) => {
-    setTasks([...tasks, { task, selectedTeam }]);
-  };
-
-
-
-
   return (
     <div className="App">
       <h1>Task Assignment</h1>
-      <TaskForm teams={teams} onTaskSubmit={assignTask} />
+      <TaskForm teams={teams} />
       <div>
         <h2>Assigned Tasks:</h2>
         <ul>

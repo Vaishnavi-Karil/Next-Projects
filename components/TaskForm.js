@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 
-function TaskForm({ teams, onTaskSubmit }) {
+function TaskForm({ teams , setTasks }) {
   const [task, setTask] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
 
-  const handleSubmit = () => {
-    if (task.trim() && selectedTeam) {
-      onTaskSubmit({ task, selectedTeam });
-      setTask('');
-    }
-  };
+
+  // const handleSubmit = () => {
+  //   if (task.trim() && selectedTeam) {
+  //     onTaskSubmit({ task, selectedTeam });
+  //     setTask('');
+  //   }
+  // };
+
+
+
+  
 
   async function submitForm(e) {
      e.preventDefault();
@@ -32,6 +37,7 @@ function TaskForm({ teams, onTaskSubmit }) {
       if (response.ok) {
         console.log('Data sent successfully');
         // Optionally, you can handle success here or redirect to another page.
+        fetchData();
       } else {
         console.error('Failed to send data');
       }
@@ -43,7 +49,6 @@ function TaskForm({ teams, onTaskSubmit }) {
 
   return (
     <div>
-
       <form onSubmit={submitForm}>
       <textarea
         value={task}

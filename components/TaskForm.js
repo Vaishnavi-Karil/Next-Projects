@@ -11,9 +11,40 @@ function TaskForm({ teams, onTaskSubmit }) {
     }
   };
 
+  async function submitForm(e) {
+     e.preventDefault();
+    try {
+
+      const data = {
+        task : task , 
+        team : selectedTeam
+      }
+
+      console.log('data', data);
+      const response = await fetch('http://localhost:5000/assign-task', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (response.ok) {
+        console.log('Data sent successfully');
+        // Optionally, you can handle success here or redirect to another page.
+      } else {
+        console.error('Failed to send data');
+      }
+    } catch (error) {
+      console.error('Error sending data:', error);
+    }
+  }
+  
+
   return (
     <div>
-        
+
+      <form onSubmit={submitForm}>
       <textarea
         value={task}
         onChange={(e) => setTask(e.target.value)}
@@ -35,9 +66,12 @@ function TaskForm({ teams, onTaskSubmit }) {
       </select>
       <br/>
       <br/>
-      <button onClick={handleSubmit}>Assign Task</button>
+      <button>Assign Task</button>
+      </form>  
     </div>
   );
 }
+
+// onClick={handleSubmit}
 
 export default TaskForm;

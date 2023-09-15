@@ -4,7 +4,6 @@ function TaskForm({ teams , fetchData}) {
   const [task, setTask] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
 
-
   async function submitForm(e) {
      e.preventDefault();
     try {

@@ -3,18 +3,11 @@ import React, { useState, useEffect } from "react";
 import TaskForm from "../../components/TaskForm";
 
 function Home() {
-  // const [teams] = useState(['Team A', 'Team B', 'Team C']); // Replace with your teams
   const [teams, setTeams] = useState([]);
   const [tasks, setTasks] = useState([]);
 
-  // const assignTask = ({ task, selectedTeam }) => {
-  //   setTasks([...tasks, { task, selectedTeam }]);
-  // };
-
   useEffect(() => {
     // Function to fetch data from the API
-   
-
     fetchData();
   }, []);
   async function fetchData() {

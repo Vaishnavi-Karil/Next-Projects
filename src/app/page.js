@@ -1,12 +1,11 @@
-'use client'
-import React, { useState , useEffect} from 'react';
-import TaskForm from '../../components/TaskForm';
-
+"use client";
+import React, { useState, useEffect } from "react";
+import TaskForm from "../../components/TaskForm";
 
 function Home() {
-  const [teams] = useState(['Team A', 'Team B', 'Team C']); // Replace with your teams
+  // const [teams] = useState(['Team A', 'Team B', 'Team C']); // Replace with your teams
+  const [teams, setTeams] = useState([]);
   const [tasks, setTasks] = useState([]);
-
 
   // const assignTask = ({ task, selectedTeam }) => {
   //   setTasks([...tasks, { task, selectedTeam }]);
@@ -14,36 +13,56 @@ function Home() {
 
   useEffect(() => {
     // Function to fetch data from the API
-    async function fetchData() {
-      try {
-        const response = await fetch('http://localhost:5000/assigned-tasks');
-        if (response.ok) {
-          const jsonData = await response.json();
-          setTasks(jsonData);
-        } else {
-          console.error('Failed to fetch data from the API');
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
+   
 
     fetchData();
+  }, []);
+  async function fetchData() {
+    try {
+ 
+      const response = await fetch("http://localhost:5000/assign-task");
+      if (response.ok) {
+        const jsonData = await response.json();
+        setTasks(jsonData);
+      } else {
+        console.error("Failed to fetch data from the API");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
+  useEffect(() => {
+    async function fetchTeams() {
+      try {
+        const response = await fetch("http://localhost:5000/create-team");
+        if (response.ok) {
+          const jsonData = await response.json();
+          setTeams(jsonData);
+        } else {
+          console.error("Failed to fetch data from the API");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchTeams();
   }, []);
 
   return (
     <div className="App">
       <h1>Task Assignment</h1>
-      <TaskForm teams={teams} />
+      <TaskForm teams={teams} fetchData={fetchData} />
       <div>
         <h2>Assigned Tasks:</h2>
-        <ul>
-          {tasks.map((t, index) => (
-            <li key={index}>
-              Task: {t.task}, Team: {t.selectedTeam}
-            </li>
-          ))}
-        </ul>
+
+        {tasks.map((t, index) => (
+          <div key={index} style ={{marginBottom: '1rem', border: '1px solid grey', borderRadius: '20px', padding: '0rem 0.8rem'}}>
+            <p> Task: {t.task}</p>
+            <p> Team: {t.team}</p>
+            <p>Assigned Member : {t.assignedMember}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,20 +1,9 @@
 import React, { useState , useEffect} from 'react';
 
-function TaskForm({ teams , setTasks }) {
+function TaskForm({ teams , fetchData}) {
   const [task, setTask] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
 
-
-  // const handleSubmit = () => {
-  //   if (task.trim() && selectedTeam) {
-  //     onTaskSubmit({ task, selectedTeam });
-  //     setTask('');
-  //   }
-  // };
-
-
-
-  
 
   async function submitForm(e) {
      e.preventDefault();
@@ -46,7 +35,6 @@ function TaskForm({ teams , setTasks }) {
     }
   }
   
-
   return (
     <div>
       <form onSubmit={submitForm}>
@@ -63,11 +51,7 @@ function TaskForm({ teams , setTasks }) {
         <option value="" disabled>
           Select Team
         </option>
-        {teams.map((team) => (
-          <option key={team} value={team}>
-            {team}
-          </option>
-        ))}
+        <Team teams = {teams}/>
       </select>
       <br/>
       <br/>
@@ -77,6 +61,20 @@ function TaskForm({ teams , setTasks }) {
   );
 }
 
+const Team = ({teams}) => {
+  return (
+    <>
+      {teams.map((team) => {
+        const {name, _id} = team;
+        return (
+          <option key={_id} value={name}>
+            {name}
+          </option>
+        );
+      })}
+    </>
+  );
+};
 // onClick={handleSubmit}
 
 export default TaskForm;

@@ -1,4 +1,4 @@
-<h1> Assign Task to Team in Round Robin </h1>
+<h1> Task Assigned in Circular Order Using Round Robin </h1>
 <ul>
 <li>
 Assign task Frontend

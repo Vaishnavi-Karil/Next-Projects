@@ -1,5 +1,4 @@
-Assigning task to a team in round robin manner
-Front End:
+Assigning task to a team in round robin manner:
 There should be 2 fields
 1. Textarea for inputting task
 2. Dropdown for selecting team
